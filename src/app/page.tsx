@@ -1,23 +1,16 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-export const HomePage = () => {
-  //ssg
-  type Intro = {
-    description1: string;
-    description2: string;
-    description3: string;
-  };
+type Intro = {
+  description1: string;
+  description2: string;
+  description3: string;
+};
 
-  const [introData, setIntroData] = useState<Intro>();
-
-  useEffect(() => {
-    fetch("http://localhost:4000/intro")
-      .then((response) => response.json())
-      .then((data) => setIntroData(data));
-  }, []);
-
-  if (!introData) return <div>로딩중...</div>;
+const HomePage = async () => {
+  const response = await fetch("http://localhost:4000/intro", {
+    cache: "force-cache",
+  });
+  const introData: Intro = await response.json();
 
   return (
     <div className="home-container">
@@ -39,3 +32,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage;
