@@ -1,20 +1,18 @@
 import React from "react";
 
-type News = [
-  {
-    id: string;
-    title: string;
-    content: string;
-    author: string;
-    category: string;
-    createdAt: number;
-  }
-];
+type News = {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  category: string;
+  createdAt: number;
+};
 const NewsPage = async () => {
   const response = fetch("http://localhost:4000/news", {
     next: { revalidate: 5 },
   });
-  const news: News = await response.json();
+  const news: News[] = await response.json();
 
   return (
     <div className="news-container">
